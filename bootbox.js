@@ -576,6 +576,8 @@
     var body = dialog.find(".modal-body");
     var buttons = options.buttons;
     var buttonStr = "";
+    var checkbox = options.checkbox;
+    var checkboxStr = "";
     var callbacks = {
       onEscape: options.onEscape
     };
@@ -596,6 +598,10 @@
       buttonStr += "<button data-bb-handler='" + key + "' type='button' class='btn " + button.className + "'>" + button.label + "</button>";
       callbacks[key] = button.callback;
     });
+
+    if (checkbox) {
+      checkboxStr = '<div class="checkbox awesome"><input type="checkbox" id="' + checkbox.id + '"><label for="' + checkbox.id + '">' + checkbox.label + '</label></div>';
+    }
 
     body.find(".bootbox-body").html(options.message);
 
@@ -633,6 +639,9 @@
 
     if (buttonStr.length) {
       body.after(templates.footer);
+      if (checkboxStr)
+        buttonStr += checkboxStr;
+
       dialog.find(".modal-footer").html(buttonStr);
     }
 
